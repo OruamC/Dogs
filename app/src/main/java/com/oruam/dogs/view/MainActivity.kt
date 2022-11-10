@@ -1,7 +1,8 @@
-package com.oruam.dogs
+package com.oruam.dogs.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.oruam.dogs.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

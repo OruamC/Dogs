@@ -22,10 +22,12 @@
             android:id="@+id/btnList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:clickable="true"
+            android:contentDescription="list icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="list icon"
             app:srcCompat="@drawable/ic_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

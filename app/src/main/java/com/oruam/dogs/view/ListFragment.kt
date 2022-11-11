@@ -1,18 +1,15 @@
 package com.oruam.dogs.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavDirections
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.oruam.dogs.R
 import com.oruam.dogs.databinding.FragmentListBinding
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class ListFragment : Fragment() {
@@ -35,5 +32,11 @@ class ListFragment : Fragment() {
             val action = ListFragmentDirections.actionDetailFragment()
             Navigation.findNavController(it).navigate(action)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        binding = null
     }
 }

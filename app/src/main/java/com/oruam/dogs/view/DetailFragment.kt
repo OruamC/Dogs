@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.oruam.dogs.databinding.FragmentDetailBinding
 
 /**
@@ -32,12 +31,6 @@ class DetailFragment : Fragment() {
 
         arguments?.let {
             dogUuid = DetailFragmentArgs.fromBundle(it).dogUuid
-            binding?.textView2?.text = dogUuid.toString()
-        }
-
-        binding?.btnList?.setOnClickListener {
-            val action = DetailFragmentDirections.actionListFragment()
-            Navigation.findNavController(it).navigate(action)
         }
     }
 

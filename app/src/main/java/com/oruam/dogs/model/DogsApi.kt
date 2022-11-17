@@ -1,6 +1,6 @@
 package com.oruam.dogs.model
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 
 interface DogsApi {

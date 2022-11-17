@@ -17,7 +17,7 @@ class DogsApiService {
         .build()
         .create(DogsApi::class.java)
 
-    fun getDogs(): Single<DogBreed> {
+    fun getDogs(): Single<List<DogBreed>> {
         return api.getDogs()
     }
 }

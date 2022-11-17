@@ -2,6 +2,7 @@ package com.oruam.dogs.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.oruam.dogs.databinding.ItemDogBinding
 import com.oruam.dogs.model.DogBreed
@@ -31,6 +32,10 @@ class DogsListAdapter(private val dogList: ArrayList<DogBreed>): RecyclerView.Ad
         val dog = dogList[position]
         holder.binding.name.text = dog.dogBreed
         holder.binding.lifespan.text = dog.lifeSpan
+
+        holder.binding.llDogItem.setOnClickListener {
+            Navigation.findNavController(it).navigate(ListFragmentDirections.actionDetailFragment())
+        }
     }
 
     override fun getItemCount(): Int {

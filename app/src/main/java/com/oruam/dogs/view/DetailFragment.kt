@@ -47,7 +47,7 @@ class DetailFragment : Fragment() {
         viewModel.dog.observe(viewLifecycleOwner, Observer { dog ->
             dog?.let {
                 binding?.dogName?.text = dog.dogBreed
-                binding?.dogPurpose?.text = dog.breedFor
+                binding?.dogPurpose?.text = dog.bredFor
                 binding?.dogTemperament?.text = dog.temperament
                 binding?.dogLifespan?.text = dog.lifeSpan
             }

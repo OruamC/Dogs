@@ -6,8 +6,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.oruam.dogs.databinding.ItemDogBinding
 import com.oruam.dogs.model.DogBreed
+import com.oruam.dogs.util.getProgressDrawable
+import com.oruam.dogs.util.loadImage
 
-class DogsListAdapter(private val dogList: ArrayList<DogBreed>): RecyclerView.Adapter<DogsListAdapter.ViewHolder>() {
+class DogsListAdapter(private val dogList: ArrayList<DogBreed>) :
+    RecyclerView.Adapter<DogsListAdapter.ViewHolder>() {
 
     fun updateDogList(newDogList: List<DogBreed>) {
         dogList.clear()
@@ -15,7 +18,7 @@ class DogsListAdapter(private val dogList: ArrayList<DogBreed>): RecyclerView.Ad
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val binding: ItemDogBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemDogBinding) : RecyclerView.ViewHolder(binding.root) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,6 +39,10 @@ class DogsListAdapter(private val dogList: ArrayList<DogBreed>): RecyclerView.Ad
         holder.binding.llDogItem.setOnClickListener {
             Navigation.findNavController(it).navigate(ListFragmentDirections.actionDetailFragment())
         }
+        holder.binding.imageView.loadImage(
+            dogList[position].imageUrl,
+            getProgressDrawable(holder.binding.imageView.context)
+        )
     }
 
     override fun getItemCount(): Int {

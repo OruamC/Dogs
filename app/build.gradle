@@ -68,7 +68,7 @@ dependencies {
 
     // Kotlin extension for coroutine support with activities
     implementation "androidx.activity:activity-ktx:$activityVersion"
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
 
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

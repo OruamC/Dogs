@@ -1,15 +1,17 @@
 package com.oruam.dogs.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.oruam.dogs.model.DogBreed
+import com.oruam.dogs.model.DogDatabase
 import com.oruam.dogs.model.DogsApiService
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
-class ListViewModel : ViewModel() {
+class ListViewModel(application: Application) : BaseViewModel(application) {
     private val dogsService = DogsApiService()
 
     // avoid memory leaks
@@ -32,9 +34,7 @@ class ListViewModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<DogBreed>>() {
                     override fun onSuccess(dogsList: List<DogBreed>) {
-                        dogs.value = dogsList
-                        dogsLoadError.value = false
-                        loading.value = false
+                        storeDogsLocally(dogsList)
                     }
 
                     override fun onError(e: Throwable) {
@@ -44,6 +44,26 @@ class ListViewModel : ViewModel() {
                     }
                 })
         )
+    }
+
+    private fun dogsRetrivied(dogsList: List<DogBreed>) {
+        dogs.value = dogsList
+        dogsLoadError.value = false
+        loading.value = false
+    }
+
+    private fun storeDogsLocally(list: List<DogBreed>) {
+        launch {
+            val dao = DogDatabase(getApplication()).dogDao()
+            dao.deleteAllDogs()
+            val result = dao.insertAll(*list.toTypedArray())
+            var i = 0
+            while (i < list.size) {
+                list[i].uuid = result[i].toInt()
+                ++i
+            }
+            dogsRetrivied(list)
+        }
     }
 
     override fun onCleared() {

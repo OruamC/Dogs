@@ -85,9 +85,9 @@ dependencies {
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
-//
-//    implementation "com.android.support:palette-v7:$supportVersion"
-//
+
+    implementation "com.android.support:palette-v7:$supportVersion"
+
     implementation "androidx.preference:preference-ktx:$preferencesVersion"
 
     testImplementation 'junit:junit:4.13.2'

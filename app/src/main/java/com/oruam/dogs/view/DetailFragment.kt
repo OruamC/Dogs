@@ -48,7 +48,7 @@ class DetailFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.dog.observe(viewLifecycleOwner, Observer { dog ->
             dog?.let {
-                binding?.dogImage?.loadImage(dog.imageUrl, getProgressDrawable(binding?.dogImage!!.context))
+                context?.let { binding?.dogImage?.loadImage(dog.imageUrl, getProgressDrawable(it)) }
                 binding?.dogName?.text = dog.dogBreed
                 binding?.dogPurpose?.text = dog.bredFor
                 binding?.dogTemperament?.text = dog.temperament

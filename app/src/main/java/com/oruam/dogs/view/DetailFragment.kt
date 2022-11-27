@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.oruam.dogs.databinding.FragmentDetailBinding
+import com.oruam.dogs.util.getProgressDrawable
+import com.oruam.dogs.util.loadImage
 import com.oruam.dogs.viewmodel.DetailViewModel
 
 /**
@@ -38,7 +40,7 @@ class DetailFragment : Fragment() {
         }
 
         viewModel = ViewModelProvider(this@DetailFragment).get(DetailViewModel::class.java)
-        viewModel.fetch()
+        viewModel.fetch(dogUuid)
 
         observeViewModel()
     }
@@ -46,6 +48,7 @@ class DetailFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.dog.observe(viewLifecycleOwner, Observer { dog ->
             dog?.let {
+                binding?.dogImage?.loadImage(dog.imageUrl, getProgressDrawable(binding?.dogImage!!.context))
                 binding?.dogName?.text = dog.dogBreed
                 binding?.dogPurpose?.text = dog.bredFor
                 binding?.dogTemperament?.text = dog.temperament

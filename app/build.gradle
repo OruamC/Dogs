@@ -46,7 +46,7 @@ def rxAndroidVersion = '3.0.2'
 def room_version = '2.4.3'
 def activityVersion = '1.6.1'
 def nav_version = '2.5.3'
-def preferencesVersion = '1.0.0'
+def preferencesVersion = '1.2.0'
 
 dependencies {
 
@@ -88,7 +88,7 @@ dependencies {
 //
 //    implementation "com.android.support:palette-v7:$supportVersion"
 //
-//    implementation "androidx.preference:preference:$preferencesVersion"
+    implementation "androidx.preference:preference-ktx:$preferencesVersion"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.oruam.dogs.model.DogBreed
 import com.oruam.dogs.model.DogDatabase
 import com.oruam.dogs.model.DogsApiService
+import com.oruam.dogs.util.NotificationsHelper
 import com.oruam.dogs.util.SharedPreferencesHelper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -65,6 +66,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                             Toast.LENGTH_SHORT
                         )
                             .show()
+                        NotificationsHelper(getApplication()).createNotification()
                     }
 
                     override fun onError(e: Throwable) {

@@ -1,13 +1,13 @@
 package com.oruam.dogs.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.oruam.dogs.R
 import com.oruam.dogs.databinding.FragmentListBinding
 import com.oruam.dogs.viewmodel.ListViewModel
 
@@ -28,6 +28,7 @@ class ListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentListBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding?.root
     }
 
@@ -75,6 +76,22 @@ class ListFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.list_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.actionSettings -> {
+                view?.let {
+                    Navigation.findNavController(it)
+                        .navigate(ListFragmentDirections.actionSettings())
+                }
+            }
+        }
+        return super.onContextItemSelected(item)
     }
 
     override fun onDestroy() {

@@ -3,6 +3,7 @@ package com.oruam.dogs.view
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun notifyDetailFragment(permission: Boolean) {
-        val activityFragment = supportFragmentManager.primaryNavigationFragment
+        val activityFragment = supportFragmentManager.fragments[0].childFragmentManager.primaryNavigationFragment
         if (activityFragment is DetailFragment) {
             (activityFragment as DetailFragment).onPermissionResult(permission)
         }

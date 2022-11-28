@@ -2,8 +2,11 @@ package com.oruam.dogs.view
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +16,9 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.oruam.dogs.R
 import com.oruam.dogs.databinding.FragmentDetailBinding
+import com.oruam.dogs.databinding.SendSmsDialogBinding
+import com.oruam.dogs.model.DogBreed
+import com.oruam.dogs.model.SmsInfo
 import com.oruam.dogs.util.getProgressDrawable
 import com.oruam.dogs.util.loadImage
 import com.oruam.dogs.viewmodel.DetailViewModel
@@ -29,6 +35,7 @@ class DetailFragment : Fragment() {
     private var dogUuid = 0
 
     private var sendSmsStarted = false
+    private var currentDog: DogBreed? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +63,7 @@ class DetailFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.dog.observe(viewLifecycleOwner, Observer { dog ->
             dog?.let {
+                currentDog = dog
                 it.imageUrl?.let { url ->
                     setupBackgroundColor(url)
                 }
@@ -107,6 +115,34 @@ class DetailFragment : Fragment() {
     }
 
     fun onPermissionResult(permissionGranted: Boolean) {
+        if (sendSmsStarted && permissionGranted) {
+            context?.let {
+                val smsInfo = SmsInfo(
+                    "",
+                    "${currentDog?.dogBreed} bred for ${currentDog?.bredFor}",
+                    currentDog?.imageUrl
+                )
+                val dialogBinding = SendSmsDialogBinding.inflate(LayoutInflater.from(it))
+                AlertDialog.Builder(it)
+                    .setView(dialogBinding.root)
+                    .setPositiveButton("Send SMS") { dialog, which ->
+                        if (!dialogBinding.smsDestination.text.isNullOrEmpty()) {
+                            smsInfo.to = dialogBinding.smsDestination.text.toString()
+                            sendSms(smsInfo)
+                        }
+                    }
+                    .setNegativeButton("Cancel") { dialog, which ->
+
+                    }
+                    .show()
+
+                dialogBinding.smsText.setText(smsInfo.text)
+                Glide.with(this).load(smsInfo.imageUrl).fitCenter().into(dialogBinding.smsImage)
+            }
+        }
+    }
+
+    private fun sendSms(smsInfo: SmsInfo) {
 
     }
 

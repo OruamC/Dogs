@@ -28,6 +28,8 @@ class DetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
     private var dogUuid = 0
 
+    private var sendSmsStarted = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -94,13 +96,18 @@ class DetailFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_send_sms -> {
-
+                sendSmsStarted = true
+                (activity as MainActivity).checkSmsPermission()
             }
             R.id.action_share -> {
 
             }
         }
         return super.onContextItemSelected(item)
+    }
+
+    fun onPermissionResult(permissionGranted: Boolean) {
+
     }
 
     override fun onDestroy() {

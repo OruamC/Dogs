@@ -17,6 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -90,6 +91,10 @@ dependencies {
 
     implementation "androidx.preference:preference:$preferencesVersion"
     implementation "androidx.preference:preference-ktx:$preferencesVersion"
+
+    implementation "com.google.firebase:firebase-core:21.1.1"
+
+    implementation "androidx.multidex:multidex:2.0.1"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

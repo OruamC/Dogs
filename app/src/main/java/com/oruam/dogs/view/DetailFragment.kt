@@ -136,13 +136,13 @@ class DetailFragment : Fragment() {
                 val dialogBinding = SendSmsDialogBinding.inflate(LayoutInflater.from(it))
                 AlertDialog.Builder(it)
                     .setView(dialogBinding.root)
-                    .setPositiveButton("Send SMS") { dialog, which ->
+                    .setPositiveButton("Send SMS") { _, _ ->
                         if (!dialogBinding.smsDestination.text.isNullOrEmpty()) {
                             smsInfo.to = dialogBinding.smsDestination.text.toString()
                             sendSms(smsInfo)
                         }
                     }
-                    .setNegativeButton("Cancel") { dialog, which ->
+                    .setNegativeButton("Cancel") { _, _ ->
 
                     }
                     .show()

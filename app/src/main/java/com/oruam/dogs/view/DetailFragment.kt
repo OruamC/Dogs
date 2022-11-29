@@ -1,10 +1,12 @@
 package com.oruam.dogs.view
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.telephony.SmsManager
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -143,7 +145,14 @@ class DetailFragment : Fragment() {
     }
 
     private fun sendSms(smsInfo: SmsInfo) {
-
+        val intent = Intent(context, MainActivity::class.java)
+        val pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val sms = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            context?.getSystemService(SmsManager::class.java)
+        } else {
+            SmsManager.getDefault()
+        }
+        sms?.sendTextMessage(smsInfo.to, null, smsInfo.text, pi, null)
     }
 
     override fun onDestroy() {
